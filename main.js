@@ -8,14 +8,22 @@ if(document.URL.includes('https://www.youtube.com')) {
     } catch {
 
     }
-    super_title = document.getElementById('super-title'); 
-    if(super_title !== undefined) {
-        for (child of super_title.childNodes) {
-            if(child.textContent.toLowerCase().includes('shorts')) {
-                next_video = document.getElementById('video-title').parentNode.parentNode; 
-                window.location.href = "https://youtube.com" + next_video.getAttribute('href'); 
-                break;
+    cursed_urls = 'https://www.youtube.com/shorts/'
+    if(document.URL.includes(cursed_urls)) {
+        window.location.href = 'https://www.youtube.com'; 
+    }
+    if(document.URL == 'https://www.youtube.com/') {
+        Array.from(document.getElementsByTagName('ytd-rich-shelf-renderer')).find(x => x.hasAttribute('is-shorts')).remove(); 
+    }
+    window.setInterval(() => {
+        for(potential_short of document.getElementsByTagName('a')) {
+            if(potential_short.href.includes('/shorts')) {
+                actual_arbo = potential_short;
+                while(actual_arbo.getAttribute('id') !== 'contents') {
+                    actual_arbo = actual_arbo.parentNode; 
+                }
+                actual_arbo.remove();    
             }
         }
-    }
+    }, 1000); 
 } 
