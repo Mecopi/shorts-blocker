@@ -9,14 +9,13 @@ if(document.URL.includes('https://www.youtube.com')) {
 
     }
     super_title = document.getElementById('super-title'); 
-    if(super_title === undefined) {
-        ; 
-    }
-    for (child of super_title.childNodes) {
-        if(child.textContent.toLowerCase().includes('shorts')) {
-            next_video = document.getElementById('video-title').parentNode.parentNode; 
-            window.location.href = "https://youtube.com" + next_video.getAttribute('href'); 
-            break;
+    if(super_title !== undefined) {
+        for (child of super_title.childNodes) {
+            if(child.textContent.toLowerCase().includes('shorts')) {
+                next_video = document.getElementById('video-title').parentNode.parentNode; 
+                window.location.href = "https://youtube.com" + next_video.getAttribute('href'); 
+                break;
+            }
         }
     }
 } 
