@@ -15,19 +15,18 @@ if(document.URL.includes('https://www.youtube.com')) {
         // Erase shorts sections from main page
         if(document.URL == 'https://www.youtube.com/') {
             Array.from(document.getElementsByTagName('ytd-rich-shelf-renderer')).find(x => x.hasAttribute('is-shorts')).remove(); 
-        }
 
-        // Erase all shorts videos from main page
-        window.setInterval(() => {
-            for(video_preview of document.getElementsByTagName('ytd-rich-item-renderer')) {
-                for(child of video_preview.children) {
-                    if(Array.from(child.getElementsByTagName('a')).find(x => x.hasAttribute('href') && x.href.includes('/shorts')) !== undefined) {
-                        video_preview.remove(); 
-                    }  
+            // Erase all shorts videos from main page
+            window.setInterval(() => {
+                for(video_preview of document.getElementsByTagName('ytd-rich-item-renderer')) {
+                    for(child of video_preview.children) {
+                        if(Array.from(child.getElementsByTagName('a')).find(x => x.hasAttribute('href') && x.href.includes('/shorts')) !== undefined) {
+                            video_preview.remove(); 
+                        }  
+                    }
                 }
-            }
-        }, 1000); 
-
+            }, 500); 
+        }
         // Delete shorts section from youtubers main pages
 
         if(document.URL.includes('https://www.youtube.com/c/') || document.URL.includes('https://www.youtube.com/user/')) {
@@ -36,6 +35,21 @@ if(document.URL.includes('https://www.youtube.com')) {
                     tab.remove(); 
                 }
             }
+        }
+
+        // Delete shorts from subscriptions
+
+        if(document.URL == 'https://www.youtube.com/feed/subscriptions') {
+            window.setInterval(() => {
+                for(video_preview of document.getElementsByTagName('ytd-grid-video-renderer')) {
+                    for(child of video_preview.children) {
+                        if(Array.from(child.getElementsByTagName('a')).find(x => x.hasAttribute('href') && x.href.includes('/shorts')) !== undefined) {
+                            video_preview.remove(); 
+                        }  
+                    }
+                }
+
+            }, 500); 
         }
 
     }, 2000)
