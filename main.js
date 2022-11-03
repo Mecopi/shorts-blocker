@@ -17,13 +17,11 @@ if(document.URL.includes('https://www.youtube.com')) {
             Array.from(document.getElementsByTagName('ytd-rich-shelf-renderer')).find(x => x.hasAttribute('is-shorts')).remove(); 
         }
         window.setInterval(() => {
-            for(potential_short of document.getElementsByTagName('a')) {
-                if(potential_short.href.includes('/shorts')) {
-                    actual_arbo = potential_short;
-                    while(actual_arbo.getAttribute('id') !== 'content') {
-                        actual_arbo = actual_arbo.parentNode; 
-                    }
-                    actual_arbo.remove();
+            for(video_preview of document.getElementsByTagName('ytd-rich-item-renderer')) {
+                for(child of video_preview.children) {
+                    if(Array.from(child.getElementsByTagName('a')).find(x => x.hasAttribute('href') && x.href.includes('/shorts')) !== undefined) {
+                        video_preview.remove(); 
+                    }  
                 }
             }
         }, 1000); 
