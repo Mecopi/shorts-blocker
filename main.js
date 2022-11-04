@@ -28,11 +28,13 @@ if(document.URL.includes('https://www.youtube.com')) {
     }, 500); 
     // Delete shorts section from youtubers main pages
 
-    if(document.URL.includes('https://www.youtube.com/c/') || document.URL.includes('https://www.youtube.com/user/')) {
-        for(tab of document.getElementsByTagName('tp-yt-paper-tab')) {
-            if(Array.from(tab.children).find(x => x.textContent.trim() == 'Shorts')) {
-                tab.remove(); 
+    window.setInterval(() => {
+        if(document.URL.includes('https://www.youtube.com/c/') || document.URL.includes('https://www.youtube.com/user/')) {
+            for(tab of document.getElementsByTagName('tp-yt-paper-tab')) {
+                if(Array.from(tab.children).find(x => x.textContent.trim() == 'Shorts')) {
+                    tab.remove();
+                }
             }
         }
-    }
+    }, 1000); 
 } 
